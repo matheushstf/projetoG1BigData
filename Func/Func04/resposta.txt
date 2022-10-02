@@ -1,0 +1,11 @@
+--O Número de reservas de um determinado espetaculo
+CREATE OR REPLACE FUNCTION NUMERO_DE_RESERVAS(NOME_DO_ESPETACULO VARCHAR)
+RETURN INTEGER AS
+$$
+BEGIN
+	select count(*) from reserva r
+	join espetaculo e on r.cod_espetaculo = e.cod_espetaculo
+	where e.nome = NOME_DO_ESPETACULO;
+END;
+$$
+LANGUAGE PLPGSQL;
