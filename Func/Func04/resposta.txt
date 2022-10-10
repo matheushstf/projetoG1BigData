@@ -1,11 +1,19 @@
---O Número de reservas de um determinado espetaculo
+Função 04
+
+OBS: Essa função retorna o número de cadeiras com base no nome do espetaculo
+
 CREATE OR REPLACE FUNCTION NUMERO_DE_RESERVAS(NOME_DO_ESPETACULO VARCHAR)
-RETURN INTEGER AS
+RETURNS INTEGER AS
 $$
+DECLARE
+	N_RESERVA INTEGER;
 BEGIN
-	select count(*) from reserva r
-	join espetaculo e on r.cod_espetaculo = e.cod_espetaculo
-	where e.nome = NOME_DO_ESPETACULO;
+	SELECT COUNT(*) FROM RESERVA AS R
+	JOIN ESPETACULO AS E ON R.COD_ESPETACULO = E.COD_ESPETACULO 
+	WHERE E.NOME = NOME_DO_ESPETACULO INTO N_RESERVA;
+	RETURN N_RESERVA;
 END;
 $$
 LANGUAGE PLPGSQL;
+
+SELECT NUMERO_DE_RESERVAS('Cisne Negro')
